@@ -1,0 +1,8 @@
+{
+  "vars": {},
+  "css": [
+    "glyphicons.less"
+  ],
+  "js": [],
+  "customizerUrl": "http://getbootstrap.com/customize/?id=05fb61868d30e747e3ed"
+}
