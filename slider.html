@@ -53,7 +53,7 @@
 			}
 			.slider-element-content {
 				height: auto;
-				width: 50%;
+				width: 75%;
 				padding: 20px 0 0 20px;
 			}
 			.slider-element-content .container {
@@ -217,17 +217,23 @@
 			}
 
 			/* Custom styles */
+			.home-text-div {
+				padding: 0 40px;
+			}
 			.first-element h2, p {
 				color: #fff;
 			}
 			.first-element h2 {
-				font-size: 24px;
+				font-size: 1.2em;
 				line-height: 1.1;
 				font-weight: bold;
 			}
 			.first-element p {
-				font-size: 16px;
+				font-size: 1em;
 				line-height: 1.1;
+			}
+			.home-text-div-br {
+				display: none;
 			}
 			.slider-element-text {
 				background-color: #000;
@@ -254,20 +260,60 @@
 			}
 			.slider-element-title {
 				color: #EC0B43;
-				font-size: 1.4em;
+				font-size: 0.9em;
 			}
 			.slider-element-desc {
 				color: #fff;
-				font-size: 0.8em;
+				font-size: 0.6em;
 			}
-			@media (min-width: 768px) {
+			@media (min-width: 500px) {
 				.slider-element-title {
 					color: #EC0B43;
-					font-size: 1.8em;
+					font-size: 1.1em;
 				}
 				.slider-element-desc {
 					color: #fff;
-					font-size: 1.2em;
+					font-size: 0.8em;
+				}
+				.home-text-div {
+					padding: 0 30px;
+				}
+				.first-element h2 {
+					font-size: 1.4em;
+					line-height: 1.1;
+					font-weight: bold;
+				}
+				.first-element p {
+					font-size: 1.1em;
+					line-height: 1.1;
+				}
+				.home-text-div-br {
+					display: block;
+				}
+			}
+			@media (min-width: 768px) {
+				.home-text-div {
+					padding: 0 20px;
+				}
+				.first-element h2 {
+					font-size: 1.6em;
+					line-height: 1.1;
+					font-weight: bold;
+				}
+				.first-element p {
+					font-size: 1.1em;
+					line-height: 1.1;
+				}
+				.slider-element-content {
+					width: 50%;
+				}
+				.slider-element-title {
+					color: #EC0B43;
+					font-size: 1.6em;
+				}
+				.slider-element-desc {
+					color: #fff;
+					font-size: 1em;
 				}
 			}
 
@@ -288,15 +334,15 @@
 
 		<div class="slider">
 			<div class="slider-element-container">
-				<div class="slider-element first-element hidden-xs active">
+				<div class="slider-element first-element active">
 					<div class="container">
 						<div class="row">
 							<div class="col-sm-6 home-text-div">
 								<h2>We are a leading broadcast PR specialist consultancy based in London, Manchester and Dubai.</h2>
-								<br/>
+								<br class="home-text-div-br">
 								<p>We offer editorial TV and radio services globally as well as digital solutions, such as live streaming to mobile.</p>
 							</div>
-							<div class="col-sm-6 home-video-div">
+							<div class="col-sm-6 home-video-div hidden-xs">
 								<video width="100%" height="100%" id="home-video" class="home-video" poster="files/videos/m4dc-video-for-homepage-placeholder.jpg">
 									<source src="files/videos/m4dc-video-for-homepage.ogv" type="video/ogg; codecs="theora, vorbis"">
 									<source src="files/videos/m4dc-video-for-homepage.webm" type="video/webm;">
@@ -377,13 +423,16 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
+				var windowWidth = $(window).width();
 
 				// Settings
 				autoSlide = true;
 				autoCanSlide = true;
 				clickCanSlide = true;
 
+				// Variables
 				var height = $('.active img').height();
+
 				$('.slider').height(height);
 				$('.first-element .container').width($(window).width() - ($('.first-element .container').width() / 6));
 				$('.slider-element.first-element .col-sm-6').each(function() {
@@ -427,8 +476,10 @@
 						}, 10);
 						$('#'+currentID+'.indicator').removeClass('active-indicatior');
 						$('#'+nextID+'.indicator').addClass('active-indicatior');
-						if (currentID == 1 && $('.home-video-div video').get(0).paused == false) {
-							$('.home-video-div video').get(0).pause();
+						if (windowWidth > 768) {
+							if (currentID == 1 && $('.home-video-div video').get(0).paused == false) {
+								$('.home-video-div video').get(0).pause();
+							}
 						}
 						setTimeout(function() {
 							$('#'+currentID+'.slider-element').removeClass('show-element left-remove right-next active');
@@ -565,40 +616,56 @@
 
 				$(window).resize(function() {
 					var height = $('.active img').height();
+					var windowWidth = $(window).width();
+
 					$('.slider').height(height);
 					$('.first-element .container').width($(window).width() - ($('.first-element .container').width() / 6));
 					$('.slider-element.first-element .col-sm-6').each(function() {
 						$(this).css('margin-top', ($('.slider-element').height() / 2) - ($(this).height() / 2));
 					});
+
+					if (windowWidth > 992) {
+						$('.right-control').removeClass('show-controls');
+						$('.left-control').removeClass('show-controls');
+						$('.indicators-container').removeClass('show-indicators');
+					} else {
+						$('.right-control').addClass('show-controls');
+						$('.left-control').addClass('show-controls');
+						$('.indicators-container').addClass('show-indicators');
+					}
 				});
 				
 				function doAutoSlide() {
 					setTimeout(function() {
-						if (autoSlide == true) {
-							if (autoCanSlide == true && $('.home-video-div video').get(0).paused == false) {
-								$('.right-control').trigger('click');
-								doAutoSlide();
-							} else {
-								doAutoSlide();
-							}
+						if (autoCanSlide == true && $('.home-video-div video').get(0).paused == false) {
+							$('.right-control').trigger('click');
+							doAutoSlide();
+						} else {
+							doAutoSlide();
 						}
 					}, 5000);
 				}
 				doAutoSlide();
 
-				$('.slider').on('mouseover', function() {
-					autoCanSlide = false;
+				if (windowWidth > 992) {
+					$('.slider').on('mouseover', function() {
+						autoCanSlide = false;
+						$('.right-control').addClass('show-controls');
+						$('.left-control').addClass('show-controls');
+						$('.indicators-container').addClass('show-indicators');
+					});
+
+					$('.slider').on('mouseout', function() {
+						autoCanSlide = true;
+						$('.right-control').removeClass('show-controls');
+						$('.left-control').removeClass('show-controls');
+						$('.indicators-container').removeClass('show-indicators');
+					});
+				} else {
 					$('.right-control').addClass('show-controls');
 					$('.left-control').addClass('show-controls');
 					$('.indicators-container').addClass('show-indicators');
-				});
-
-				$('.slider').on('mouseout', function() {
-					autoCanSlide = true;
-					$('.right-control').removeClass('show-controls');
-					$('.left-control').removeClass('show-controls');
-					$('.indicators-container').removeClass('show-indicators');
-				});
+				}
 
 				$('.home-video-div video').on('click', function() {
 					if ($(this).get(0).paused) {
