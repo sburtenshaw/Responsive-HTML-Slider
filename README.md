@@ -1,2 +1,2 @@
-# m4dc-responsive-slider
-New m4dc website, improved image slider
+# Responsive-HTML-Slider
+Fully responsive HTML slider
