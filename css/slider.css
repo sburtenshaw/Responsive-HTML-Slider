@@ -32,6 +32,7 @@ h1, h2, h3, h4, h5, h6 {
 	display: block;
 }
 .slider-element {
+	position: absolute;
 	height: 100%;
 	-moz-transition: 1s ease-in-out;
 	-webkit-transition: 1s ease-in-out;
@@ -95,7 +96,7 @@ h1, h2, h3, h4, h5, h6 {
 	position: absolute;
 	left: 0;
 	top: 0;
-	z-index: 0;
+	z-index: 10;
 	opacity: 0;
 	filter: alpha(opacity=0);
 	-moz-opacity: 0;
@@ -120,6 +121,7 @@ h1, h2, h3, h4, h5, h6 {
 	position: absolute;
 	right: 0;
 	top: 0;
+	z-index: 10;
 	opacity: 0;
 	filter: alpha(opacity=0);
 	-moz-opacity:0;
@@ -164,7 +166,7 @@ h1, h2, h3, h4, h5, h6 {
 	position: absolute;
 	bottom: 3px;
 	right: 5px;
-	z-index: 1;
+	z-index: 20;
 	-moz-transition: 0.25s ease-in-out;
 	-webkit-transition: 0.25s ease-in-out;
 	-o-transition: 0.25s ease-in-out;
@@ -183,7 +185,7 @@ h1, h2, h3, h4, h5, h6 {
 	display: inline-block;
 	margin-right: 5px;
 }
-.active-indicatior {
+.active-indicator {
 	border: 2px solid #FFFFFF;
 	background-color: #EC0B43;
 }
@@ -196,29 +198,29 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Sliding styles */
 .show-element {
-	transform: translateX(0px) !important;
-	-ms-transform: translateX(0px) !important;
-	-webkit-transform: translateX(0px) !important;
+	left: 0 !important;
+	right: 0 !important;
+	z-index: 0;
 }
 .left-next {
-	transform: translateX(-100%);
-	-ms-transform: translateX(-100%);
-	-webkit-transform: translateX(-100%);
+	left: -100%;
+	right: 100%;
+	z-index: 5;
 }
 .left-remove {
-	transform: translateX(-100%) !important;
-	-ms-transform: translateX(-100%) !important;
-	-webkit-transform: translateX(-100%) !important;
+	left: -100% !important;
+	right: 100% !important;
+	z-index: -5;
 }
 .right-next {
-	transform: translateX(100%);
-	-ms-transform: translateX(100%);
-	-webkit-transform: translateX(100%);
+	left: 100%;
+	right: -100%;
+	z-index: 5;
 }
 .right-remove {
-	transform: translateX(100%) !important;
-	-ms-transform: translateX(100%) !important;
-	-webkit-transform: translateX(100%) !important;
+	left: 100% !important;
+	right: -100% !important;
+	z-index: -5;
 }
 
 /* Custom styles */
